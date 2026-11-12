@@ -11,7 +11,39 @@ main{display:grid;grid-template-columns:300px minmax(0,1fr);min-height:75vh}asid
 @media(max-width:760px){main{display:flex;flex-direction:column}#mapWrap{height:65vh;min-height:430px}aside{order:2}#details{max-width:calc(100% - 32px)}}
 </style></head><body>
 <header><div style="font-size:12px;letter-spacing:2px;color:#e9c28e">ALINTILAR PANOSU · DİJİTAL EDEBİYAT ATLASI</div><h1>Romanların Coğrafyası</h1><p>Bir kitap, bin düşünce, sayısız iz. · </p></header>
-<main><aside><div class="muted">KİTAP SEÇ</div><button class="active" data-book="all">🌍 Üçlemenin tamamı</button><button data-book="paris">🔴 Paris Düşerken</button><button data-book="storm">🔵 Fırtına</button><button data-book="wave">🟢 Dipten Gelen Dalga</button>
+<main><aside>
+<div class="muted">KİTAP SEÇ</div><input id="bookSearch"type="search"placeholder="🔍 Kitap veya seri ara..."style="width:100%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid #a88a75;">
+
+<button class="active" data-book="all">
+  🌍 Bütün kitapları göster
+</button>
+
+<details id="ehrenburgSeries" open>
+  <summary style="cursor:pointer;padding:13px;
+    background:#49313c;border-radius:8px;
+    color:#f4d6a5;font-weight:bold;">
+    📚 İlya Ehrenburg Üçlemesi
+  </summary>
+  <div style="padding:8px 0 8px 15px;">
+    <button data-book="paris">🔴 Paris Düşerken</button>
+    <button data-book="storm">🔵 Fırtına</button>
+    <button data-book="wave">🟢 Dipten Gelen Dalga</button>
+  </div>
+</details>
+
+<script>
+document.getElementById('bookSearch')
+  .addEventListener('input', function() {
+    const q = this.value.toLocaleLowerCase('tr-TR');
+    const series = document.getElementById('ehrenburgSeries');
+    const names = ['İlya Ehrenburg Üçlemesi',
+      'Paris Düşerken', 'Fırtına', 'Dipten Gelen Dalga'];
+    series.hidden = !names.some(n =>
+      n.toLocaleLowerCase('tr-TR').includes(q));
+    if (q) series.open = true;
+  });
+</script>
+ 
 <div class="card"><h2>Harita katmanları</h2><label><input id="showRoutes" type="checkbox" checked> Tarihsel / tematik bağlantılar</label><label><input id="showContext" type="checkbox" checked> Tarihsel bağlam noktaları</label><label><input id="showLabels" type="checkbox" checked> Şehir adları</label><p class="muted">Düz çizgi: tarihsel hareket veya eser özetindeki bağlantı. Kesik çizgi: tematik bağ. Çizgiler gerçek yol geometrisi değildir.</p></div>
 <div class="card"><h2>Şehir bilgileri — dokunarak aç</h2><div id="cityList"></div></div><div class="card"><h2>Hikâyenin zaman çizgisi</h2><div id="timeline"></div></div>
 <div class="card"><h2>Karakter rotaları</h2><p>Roman metinlerinden doğrulanmamış karakter güzergâhları eklenmedi. Buradaki bağlantılar şematiktir.</p></div>
