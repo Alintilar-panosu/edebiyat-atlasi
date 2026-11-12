@@ -9,6 +9,35 @@ main{display:grid;grid-template-columns:300px minmax(0,1fr);min-height:75vh}asid
 #atlas:active{cursor:grabbing}.land path{fill:#e8dfc7;stroke:#a6a48e;stroke-width:.7}.graticule{stroke:#b9b6a4;stroke-width:.7;opacity:.5}.place{cursor:pointer;stroke:#fff;stroke-width:2}.place:hover{stroke:#2a1a20;stroke-width:3}.route{fill:none;stroke-width:3.3;opacity:.8;stroke-linecap:round;pointer-events:stroke}.citylabel{font:12px system-ui,sans-serif;paint-order:stroke;stroke:#f5f1e5;stroke-width:3;fill:#302932;pointer-events:none}
 #details{position:absolute;left:16px;bottom:16px;max-width:340px;background:#fff9ed;color:#2f2630;padding:13px 16px;border-radius:10px;box-shadow:0 3px 20px #0004;font:14px/1.5 system-ui,sans-serif;z-index:3}#details a{color:#742a46}#details button{width:auto;float:right;margin:-5px -7px 0 8px;padding:3px 8px;background:#5d3345}.tools{position:absolute;right:15px;top:15px;display:flex;flex-direction:column;gap:4px}.tools button{width:40px;text-align:center;background:#fff8ed;color:#302332;font:bold 20px system-ui;margin:0}.note{position:absolute;right:15px;bottom:12px;background:#fff9edcc;color:#493b41;padding:7px;border-radius:6px;font:11px system-ui}.pill{display:inline-block;border-left:4px solid;padding:4px 7px;margin:5px 0;background:#4c3947}
 @media(max-width:760px){main{display:flex;flex-direction:column}#mapWrap{height:65vh;min-height:430px}aside{order:2}#details{max-width:calc(100% - 32px)}}
+
+/* Şehir açıklamalarını haritanın üstünde göster */
+#details {
+  position: absolute !important;
+  top: 20px !important;
+  right: 20px !important;
+  bottom: auto !important;
+  left: auto !important;
+  width: 340px !important;
+  max-width: calc(100% - 40px) !important;
+  max-height: 70vh !important;
+  overflow-y: auto !important;
+  z-index: 100 !important;
+}
+
+#details[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  #details {
+    top: 12px !important;
+    right: 12px !important;
+    left: 12px !important;
+    width: auto !important;
+    max-width: none !important;
+    max-height: 45vh !important;
+  }
+}
 </style></head><body>
 <header><div style="font-size:12px;letter-spacing:2px;color:#e9c28e">ALINTILAR PANOSU · DİJİTAL EDEBİYAT ATLASI</div><h1>Romanların Coğrafyası</h1><p>Bir kitap, bin düşünce, sayısız iz. · </p></header>
 <main><aside>
