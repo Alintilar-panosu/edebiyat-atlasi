@@ -84,11 +84,11 @@ document.getElementById('timeline').innerHTML=(selected==='all'?Object.keys(book
 }
 function setView(x,y,w,h){w=Math.min(1080,Math.max(55,w));h=w/2;x=Math.max(0,Math.min(1080-w,x));y=Math.max(0,Math.min(540-h,y));view={x,y,w,h};svg.setAttribute('viewBox',`${x} ${y} ${w} ${h}`)}
 function focus(){let pp=places.filter(p=>selected==='all'||p.books.includes(selected));let xs=pp.map(p=>project(p.lat,p.lng).x),ys=pp.map(p=>project(p.lat,p.lng).y);let xmin=Math.min(...xs)-75,xmax=Math.max(...xs)+75,ymin=Math.min(...ys)-60,ymax=Math.max(...ys)+60;let w=Math.max(xmax-xmin,(ymax-ymin)*2,180);setView((xmin+xmax-w)/2,(ymin+ymax-w/2)/2,w,w/2)}
-document.querySelectorAll('[data-book]').forEach(b=>b.onclick=()=>{selected=b.dataset.book;document.querySelectorAll('[data-book]').forEach(x=>x.classList.toggle('active',x===b));draw();focus();details.hidden=true});
+document.querySelectorAll('[data-book]').forEach(b=>b.onclick=()=>{selected=b.dataset.book;document.querySelectorAll('[data-book]').forEach(x=>x.classList.toggle('active',x===b));draw();setView(0,0,1080,540);details.hidden=true});
 ['showRoutes','showContext','showLabels'].forEach(id=>document.getElementById(id).onchange=draw);
 function zoom(f){let w=view.w*f;setView(view.x+(view.w-w)/2,view.y+(view.h-w/2)/2,w,w/2)}
 document.getElementById('zin').onclick=()=>zoom(.72);document.getElementById('zout').onclick=()=>zoom(1.4);document.getElementById('reset').onclick=()=>setView(0,0,1080,540);
 let drag=null;svg.addEventListener('pointerdown',e=>{if(e.target.closest('.place,.route'))return;drag={x:e.clientX,y:e.clientY,v:{...view}};svg.setPointerCapture(e.pointerId)});svg.addEventListener('pointermove',e=>{if(!drag)return;let r=svg.getBoundingClientRect();setView(drag.v.x-(e.clientX-drag.x)*drag.v.w/r.width,drag.v.y-(e.clientY-drag.y)*drag.v.h/r.height,drag.v.w,drag.v.h)});svg.addEventListener('pointerup',()=>drag=null);
 svg.addEventListener('wheel',e=>{e.preventDefault();zoom(e.deltaY>0?1.15:.87)},{passive:false});
-draw();focus();
+draw();setView(0,0,1080,540);
 </script></body></html>
